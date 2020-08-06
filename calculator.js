@@ -68,7 +68,7 @@ nine.addEventListener('click', enterNumbers);
 
 const zero = document.getElementById('zero');
 
-zero.addEventListener('click', enterNumbers);
+zero.addEventListener('click', enterZero);
 
 const unaryMinus = document.getElementById('unary-minus');
 
@@ -102,4 +102,15 @@ function clearResultEntry() {
     }
 }
 
+function enterZero() {
+
+    if (result.value == false) {
+
+        result.value = 0;
+    
+    } else {
+
+        result.value += 0;
+    }
+}
 
