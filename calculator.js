@@ -76,7 +76,7 @@ unaryMinus.addEventListener('click', enterNumbers);
 
 const decimal = document.getElementById('decimal');
 
-decimal.addEventListener('click', enterNumbers);
+decimal.addEventListener('click', enterDecimal);
 
 const equalSign = document.getElementById('equals-sign');
 
@@ -84,11 +84,15 @@ equalSign.addEventListener('click', enterNumbers);
 
 function enterNumbers() {
 
-    if (result.value == 0 || result.value == '') {
+    if (result.value == false && result.value.indexOf('.') == -1) {
 
         result.value = this.value;
 
-    } else if (result.value !== 0 && result.value !== '') {
+    } else if (result.value >= 0 && result.value.indexOf('.') >= 1) {
+
+        result.value += this.value;
+
+    } else {
     
         result.value += this.value;
     }
@@ -104,13 +108,21 @@ function clearResultEntry() {
 
 function enterZero() {
 
-    if (result.value == false) {
+    if (result.value == false && result.value.indexOf('.') == -1) {
 
         result.value = 0;
     
     } else {
 
         result.value += 0;
+    }
+}
+
+function enterDecimal() {
+
+    if (result.value !== '' && result.value.indexOf('.') == -1) {
+
+        result.value += decimal.value;
     }
 }
 
