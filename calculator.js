@@ -4,82 +4,94 @@ let result = document.getElementById('result');
 
 const clearEntry = document.getElementById('clear-entry');
 
-clearEntry.addEventListener('click', );
+clearEntry.addEventListener('click', enterNumbers);
 
 const clear = document.getElementById('clear');
 
-clear.addEventListener('click', );
+clear.addEventListener('click', enterNumbers);
 
 const remainder = document.getElementById('remainder');
 
-remainder.addEventListener('click', );
+remainder.addEventListener('click', enterNumbers);
 
 const division = document.getElementById('division');
 
-division.addEventListener('click', );
+division.addEventListener('click', enterNumbers);
 
 const multiplication = document.getElementById('multiplication');
 
-multiplication.addEventListener('click', );
+multiplication.addEventListener('click', enterNumbers);
 
 const subtraction = document.getElementById('subtraction');
 
-subtraction.addEventListener('click', );
+subtraction.addEventListener('click', enterNumbers);
 
 const addition = document.getElementById('addition');
 
-addition.addEventListener('click', );
+addition.addEventListener('click', enterNumbers);
 
 const one = document.getElementById('one');
 
-one.addEventListener('click', );
+one.addEventListener('click', enterNumbers);
 
 const two = document.getElementById('two');
 
-two.addEventListener('click', );
+two.addEventListener('click', enterNumbers);
 
 const three = document.getElementById('three');
 
-three.addEventListener('click', );
+three.addEventListener('click', enterNumbers);
 
 const four = document.getElementById('four');
 
-four.addEventListener('click');
+four.addEventListener('click', enterNumbers);
 
 const five = document.getElementById('five');
 
-five.addEventListener('click', );
+five.addEventListener('click', enterNumbers);
 
 const six = document.getElementById('six');
 
-six.addEventListener('click', );
+six.addEventListener('click', enterNumbers);
 
 const seven = document.getElementById('seven');
 
-seven.addEventListener('click', );
+seven.addEventListener('click', enterNumbers);
 
 const eight = document.getElementById('eight');
 
-eight.addEventListener('click', );
+eight.addEventListener('click', enterNumbers);
 
 const nine = document.getElementById('nine');
 
-nine.addEventListener('click', );
+nine.addEventListener('click', enterNumbers);
 
 const zero = document.getElementById('zero');
 
-zero.addEventListener('click', );
+zero.addEventListener('click', enterNumbers);
 
 const unaryMinus = document.getElementById('unary-minus');
 
-unaryMinus.addEventListener('click', );
+unaryMinus.addEventListener('click', enterNumbers);
 
 const decimal = document.getElementById('decimal');
 
-decimal.addEventListener('click', );
+decimal.addEventListener('click', enterNumbers);
 
 const equalSign = document.getElementById('equals-sign');
 
-equalSign.addEventListener('click', );
+equalSign.addEventListener('click', enterNumbers);
+
+function enterNumbers() {
+
+    if (result.value == 0 || result.value == '') {
+
+        result.value = this.value;
+
+    } else if (result.value !== 0 && result.value !== '') {
+    
+        result.value += this.value;
+    }
+}
 
 
