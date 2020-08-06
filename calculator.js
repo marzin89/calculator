@@ -4,7 +4,7 @@ let result = document.getElementById('result');
 
 const clearEntry = document.getElementById('clear-entry');
 
-clearEntry.addEventListener('click', enterNumbers);
+clearEntry.addEventListener('click', clearResultEntry);
 
 const clear = document.getElementById('clear');
 
@@ -91,6 +91,14 @@ function enterNumbers() {
     } else if (result.value !== 0 && result.value !== '') {
     
         result.value += this.value;
+    }
+}
+
+function clearResultEntry() {
+
+    if (result.value !== 0) {
+
+        result.value = 0;
     }
 }
 
