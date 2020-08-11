@@ -8,27 +8,27 @@ clearEntry.addEventListener('click', clearResultEntry);
 
 const clear = document.getElementById('clear');
 
-clear.addEventListener('click', enterNumbers);
+clear.addEventListener('click', clearAll);
 
 const remainder = document.getElementById('remainder');
 
-remainder.addEventListener('click', enterNumbers);
+remainder.addEventListener('click', operators);
 
 const division = document.getElementById('division');
 
-division.addEventListener('click', enterNumbers);
+division.addEventListener('click', operators);
 
 const multiplication = document.getElementById('multiplication');
 
-multiplication.addEventListener('click', enterNumbers);
+multiplication.addEventListener('click', operators);
 
 const subtraction = document.getElementById('subtraction');
 
-subtraction.addEventListener('click', enterNumbers);
+subtraction.addEventListener('click', operators);
 
 const addition = document.getElementById('addition');
 
-addition.addEventListener('click', enterNumbers);
+addition.addEventListener('click', operators);
 
 const one = document.getElementById('one');
 
@@ -92,6 +92,14 @@ function enterNumbers() {
 
         result.value += this.value;
 
+    } else if (expression.value.substr(-1) == '%' || 
+    
+    expression.value.substr(-1) == '/' || expression.value.substr(-1) == '*' ||
+    
+    expression.value.substr(-1) == '-' || expression.value.substr(-1) == '+') {
+        
+        result.value = this.value;
+    
     } else {
     
         result.value += this.value;
@@ -103,6 +111,16 @@ function clearResultEntry() {
     if (result.value !== 0) {
 
         result.value = 0;
+    }
+}
+
+function clearAll() {
+
+    if (result.value !== 0 && expression.value !== 0) {
+
+        result.value = 0;
+
+        expression.value = 0;
     }
 }
 
@@ -123,6 +141,36 @@ function enterDecimal() {
     if (result.value !== '' && result.value.indexOf('.') == -1) {
 
         result.value += decimal.value;
+    }
+}
+
+function operators() {
+
+    if (result.value > 0 || result.value.indexOf('.') > 0 && 
+    
+    result.value.slice(-1) !== '.' && expression.value.indexOf('%') == -1 &&
+    
+    expression.value.indexOf('/') == -1 && expression.value.indexOf('*') == -1 &&
+    
+    expression.value.indexOf('+') == -1 && expression.value.indexOf('-') == -1) {
+
+        expression.value = result.value + this.value;
+
+    } else if (expression.value.indexOf('%') > 0 || 
+    
+    expression.value.indexOf('/') > 0 || expression.value.indexOf('*') > 0 || 
+    
+    expression.value.indexOf('-') > 0 || expression.value.indexOf('+') > 0) {
+
+        expression.value += result.value + this.value;
+
+    } else if (result.value.substr(-1) == '.' && expression.value == '') {
+
+        expression.value = result.value.slice(0, -1) + this.value;
+
+    } else if (result.value.substr(-1) == '.' && expression.value >= 0) {
+
+        expression.value += result.value.slice(0, -1) + this.value;
     }
 }
 
