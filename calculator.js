@@ -12,23 +12,23 @@ clear.addEventListener('click', clearAll);
 
 const remainder = document.getElementById('remainder');
 
-remainder.addEventListener('click', operators);
+remainder.addEventListener('click', enterOperators);
 
 const division = document.getElementById('division');
 
-division.addEventListener('click', operators);
+division.addEventListener('click', enterOperators);
 
 const multiplication = document.getElementById('multiplication');
 
-multiplication.addEventListener('click', operators);
+multiplication.addEventListener('click', enterOperators);
 
 const subtraction = document.getElementById('subtraction');
 
-subtraction.addEventListener('click', operators);
+subtraction.addEventListener('click', enterOperators);
 
 const addition = document.getElementById('addition');
 
-addition.addEventListener('click', operators);
+addition.addEventListener('click', enterOperators);
 
 const one = document.getElementById('one');
 
@@ -88,20 +88,8 @@ function enterNumbers() {
 
         result.value = this.value;
 
-    } else if (result.value >= 0 && result.value.indexOf('.') >= 1) {
+    } else if (result.value >= 0 || result.value.indexOf('.') >= 1) {
 
-        result.value += this.value;
-
-    } else if (expression.value.substr(-1) == '%' || 
-    
-    expression.value.substr(-1) == '/' || expression.value.substr(-1) == '*' ||
-    
-    expression.value.substr(-1) == '-' || expression.value.substr(-1) == '+') {
-        
-        result.value = this.value;
-    
-    } else {
-    
         result.value += this.value;
     }
 }
@@ -144,33 +132,28 @@ function enterDecimal() {
     }
 }
 
-function operators() {
+function enterOperators() {
 
-    if (result.value > 0 || result.value.indexOf('.') > 0 && 
+    if (result.value > 0 || result.value.indexOf('.') > 0) {
+
+        if (result.value.slice(-1) !== '.' && expression.value.indexOf('%') ==  
     
-    result.value.slice(-1) !== '.' && expression.value.indexOf('%') == -1 &&
+        -1 && expression.value.indexOf('/') == -1 && 
+        
+        expression.value.indexOf('*') == -1 && expression.value.indexOf('+') == 
+        
+        -1 && expression.value.indexOf('-') == -1) {
     
-    expression.value.indexOf('/') == -1 && expression.value.indexOf('*') == -1 &&
-    
-    expression.value.indexOf('+') == -1 && expression.value.indexOf('-') == -1) {
+            expression.value = result.value + this.value;
 
-        expression.value = result.value + this.value;
+            result.value = 0;
+        
+        } else if (result.value.slice(-1) !== '.') {
 
-    } else if (expression.value.indexOf('%') > 0 || 
-    
-    expression.value.indexOf('/') > 0 || expression.value.indexOf('*') > 0 || 
-    
-    expression.value.indexOf('-') > 0 || expression.value.indexOf('+') > 0) {
+            expression.value += result.value + this.value;
 
-        expression.value += result.value + this.value;
-
-    } else if (result.value.substr(-1) == '.' && expression.value == '') {
-
-        expression.value = result.value.slice(0, -1) + this.value;
-
-    } else if (result.value.substr(-1) == '.' && expression.value >= 0) {
-
-        expression.value += result.value.slice(0, -1) + this.value;
+            result.value = 0;
+        }
     }
 }
 
