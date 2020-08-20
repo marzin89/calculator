@@ -1,10 +1,10 @@
-let expression = document.getElementById('expression');
-
 let result = document.getElementById('result');
 
-const clearEntry = document.getElementById('clear-entry');
+let number1;
 
-clearEntry.addEventListener('click', clearResultEntry);
+let number2;
+
+let operator;
 
 const clear = document.getElementById('clear');
 
@@ -80,7 +80,7 @@ decimal.addEventListener('click', enterDecimal);
 
 const equalSign = document.getElementById('equals-sign');
 
-equalSign.addEventListener('click', enterNumbers);
+equalSign.addEventListener('click', isEqualTo);
 
 function enterNumbers() {
 
@@ -88,27 +88,49 @@ function enterNumbers() {
 
         result.value = this.value;
 
-    } else if (result.value >= 0 || result.value.indexOf('.') >= 1) {
+        number1 = result.value;
+
+    } else if (result.value.slice(-1) == '%' || result.value.slice(-1) == '/' ||
+
+    result.value.slice(-1) == '*' || result.value.slice(-1) == '-' ||
+
+    result.value.slice(-1) == '+') {
 
         result.value += this.value;
-    }
-}
 
-function clearResultEntry() {
+        number2 = this.value;
+    
+    } else if (result.value > 0 || result.value.indexOf('.') >= 1 &&
+    
+    result.value.indexOf('%') == -1 && result.value.indexOf('/') == -1 &&
+    
+    result.value.indexOf('*') == -1 && result.value.indexOf('-') == -1 &&
+    
+    result.value.indexOf('+') == -1) {
 
-    if (result.value !== 0) {
+        result.value += this.value;
 
-        result.value = 0;
+        number1 += this.value;
+
+    } else if (result.value > 0 || result.value.indexOf('.') >= 1 &&
+    
+    result.value.indexOf('%') || result.value.indexOf('/') || 
+    
+    result.value.indexOf('*') || result.value.indexOf('-') || 
+    
+    result.value.indexOf('+') && Number(result.value.slice(-1))) {
+
+        result.value += this.value;
+
+        number2 += result.value;
     }
 }
 
 function clearAll() {
 
-    if (result.value !== 0 && expression.value !== 0) {
+    if (result.value !== 0) {
 
         result.value = 0;
-
-        expression.value = 0;
     }
 }
 
@@ -135,25 +157,37 @@ function enterDecimal() {
 function enterOperators() {
 
     if (result.value > 0 || result.value.indexOf('.') > 0) {
-
-        if (result.value.slice(-1) !== '.' && expression.value.indexOf('%') ==  
     
-        -1 && expression.value.indexOf('/') == -1 && 
-        
-        expression.value.indexOf('*') == -1 && expression.value.indexOf('+') == 
-        
-        -1 && expression.value.indexOf('-') == -1) {
+        if (result.value.slice(-1) !== '.') {
     
-            expression.value = result.value + this.value;
+            result.value += this.value;
 
-            result.value = 0;
-        
-        } else if (result.value.slice(-1) !== '.') {
-
-            expression.value += result.value + this.value;
-
-            result.value = 0;
+            operator = this.value;
         }
+    }
+}
+
+function isEqualTo() {
+
+    if (operator.value == '%') {
+
+        result.value = number1 % number2;
+
+    } else if (operator.value == '/') {
+
+        result.value = number1 / number2;
+
+    } else if (operator.value == '*') {
+
+        result.value = number1 * number2;
+
+    } else if (operator.value == '-') {
+
+        result.value = number1 - number2;
+
+    } else if (operator.value == '+') {
+
+        result.value = number1 + number2;
     }
 }
 

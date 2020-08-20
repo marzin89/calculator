@@ -21,11 +21,6 @@ input {
     border-color: lightskyblue;
     color: darkblue;
 }
-#expression {
-    border-bottom: hidden;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-}
 #result {
     border-top: hidden;
     border-bottom-left-radius: 5px;
