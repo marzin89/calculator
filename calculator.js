@@ -6,6 +6,8 @@ let number2;
 
 let operator;
 
+let expression = [];
+
 const clear = document.getElementById('clear');
 
 clear.addEventListener('click', clearAll);
@@ -82,6 +84,8 @@ const equalSign = document.getElementById('equals-sign');
 
 equalSign.addEventListener('click', isEqualTo);
 
+window.addEventListener('load', function() {result.value = 0});
+
 function enterNumbers() {
 
     if (result.value == false && result.value.indexOf('.') == -1) {
@@ -90,23 +94,19 @@ function enterNumbers() {
 
         number1 = result.value;
 
-    } else if (result.value.slice(-1) == '%' || result.value.slice(-1) == '/' ||
+    } else if (result.value > 0 || result.value.indexOf('.') >= 1 &&
+    
+    expression[1] == '%' || expression[1] == '/' || expression[1] == '*' || 
+    
+    expression[1] == '-' || expression[1] == '+') {
 
-    result.value.slice(-1) == '*' || result.value.slice(-1) == '-' ||
-
-    result.value.slice(-1) == '+') {
-
-        result.value += this.value;
+        result.value = this.value;
 
         number2 = this.value;
     
-    } else if (result.value > 0 || result.value.indexOf('.') >= 1 &&
+    } else if (result.value > 0 || result.value.indexOf('.') >= 1 && 
     
-    result.value.indexOf('%') == -1 && result.value.indexOf('/') == -1 &&
-    
-    result.value.indexOf('*') == -1 && result.value.indexOf('-') == -1 &&
-    
-    result.value.indexOf('+') == -1) {
+    number1 > 0 || number1.indexOf('.')) {
 
         result.value += this.value;
 
@@ -114,15 +114,11 @@ function enterNumbers() {
 
     } else if (result.value > 0 || result.value.indexOf('.') >= 1 &&
     
-    result.value.indexOf('%') || result.value.indexOf('/') || 
-    
-    result.value.indexOf('*') || result.value.indexOf('-') || 
-    
-    result.value.indexOf('+') && Number(result.value.slice(-1))) {
+    number2 > 0 || number2.indexOf('.')) {
 
         result.value += this.value;
 
-        number2 += result.value;
+        number2 += this.value;
     }
 }
 
@@ -144,13 +140,64 @@ function enterZero() {
 
         result.value += 0;
     }
+
+    if (result.value > 0 || result.value.indexOf('.') && expression == false) {
+
+        number1 += 0;
+
+    } else if (result.value > 0 || result.value.indexOf('.')) {
+
+        if (expression[1] == '%' || expression[1] == '/' || expression[1] == 
+        
+        '*' || expression[1] == '-' || expression[1] == '+' && number2 > 0 ||
+        
+            number2.indexOf('.')) {
+
+            number2 += 0;
+        }
+    }
 }
 
 function enterDecimal() {
 
-    if (result.value !== '' && result.value.indexOf('.') == -1) {
+    if (result.value >= 0 && result.value.indexOf('%') == -1 && 
+    
+    result.value.indexOf('/') == -1 && result.value.indexOf('*') == -1 && 
+    
+    result.value.indexOf('-') == -1 && result.value.indexOf('+') == -1) {
 
-        result.value += decimal.value;
+        if (result.value.indexOf('.') == -1){
+
+            result.value += decimal.value;
+        }
+    
+    } else if (result.value.indexOf('%') || result.value.indexOf('/') || 
+    
+    result.value.indexOf('*') || result.value.indexOf('-') || 
+    
+    result.value.indexOf('+')) {
+
+        if (number2.value >= 0 && number2.value.indexOf('.') == -1) {
+
+            result.value += decimal.value;
+        }
+    }
+
+    if (result.value.indexOf('%') == -1 && result.value.indexOf('/') == -1 &&
+    
+    result.value.indexOf('*') == -1 && result.value.indexOf('-') == -1 &&
+    
+    result.value.indexOf('+') == -1) {
+
+        number1 += decimal.value;
+
+    } else if (result.value.indexOf('%') || result.value.indexOf('/') ||
+    
+    result.value.indexOf('*') || result.value.indexOf('-') ||
+    
+    result.value.indexOf('+') && Number(result.value.slice(-1))) {
+
+        number2 += decimal.value;
     }
 }
 
@@ -159,8 +206,6 @@ function enterOperators() {
     if (result.value > 0 || result.value.indexOf('.') > 0) {
     
         if (result.value.slice(-1) !== '.') {
-    
-            result.value += this.value;
 
             operator = this.value;
         }
@@ -169,25 +214,25 @@ function enterOperators() {
 
 function isEqualTo() {
 
-    if (operator.value == '%') {
+    if (operator == '%') {
 
         result.value = number1 % number2;
 
-    } else if (operator.value == '/') {
+    } else if (operator== '/') {
 
         result.value = number1 / number2;
 
-    } else if (operator.value == '*') {
+    } else if (operator == '*') {
 
         result.value = number1 * number2;
 
-    } else if (operator.value == '-') {
+    } else if (operator == '-') {
 
         result.value = number1 - number2;
 
-    } else if (operator.value == '+') {
+    } else if (operator == '+') {
 
-        result.value = number1 + number2;
+        result.value = Number(number1) + Number(number2);
     }
 }
 
